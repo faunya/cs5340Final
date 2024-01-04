@@ -12,8 +12,8 @@ func _ready():
 func _physics_process(delta):
 	if interactable:
 		if Input.is_action_just_pressed("interact"): # && !interacting:
-			UiSignals.emit_signal("dialog_open","dummy-test")
-			startDialog()
+			UiSignals.emit_signal("dialog_open","dummytest")
+			#startDialog()
 		elif Input.is_action_just_pressed("cancel"):
 			UiSignals.emit_signal("dialog_close")
 
@@ -26,3 +26,4 @@ func _on_InteractArea_area_exited(area):
 
 func startDialog():
 	pass
+	#Dialogic.start("dummytest")

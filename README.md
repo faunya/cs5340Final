@@ -8,12 +8,14 @@ Cannot figure out how to set local directories as the source of an existing repo
   - [ ] Closes out dialog window when out of dialog
   - [ ] Branching dialog with choices
   - [ ] SFX
+  - [ ] GUI
 - [ ] Combat System
   - [ ] Player health
   - [X] Player attacking all directions
   - [X] Enemy knockback
-  - [ ] Enemy taking damage
+  - [X] Enemy taking damage
   - [ ] Enemy attacking
+  - [ ] Enemy hit/death effects
   - [ ] SFX
 - [ ] Dash state
   - Maybe link up the hitbox in the player code so you have to have a certain skill to have I-frames during dash?
@@ -30,6 +32,6 @@ Cannot figure out how to set local directories as the source of an existing repo
 - [ ] 
 
 ## Previous commits/changes:
-- Player attack spritesheet expanded, now has diagnoal up sprites
+- Player attack spritesheet expanded, now has diagonal up sprites
 - Dialog JSON can be read
 - Chase state for enemies expanded

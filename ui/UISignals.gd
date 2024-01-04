@@ -1,4 +1,4 @@
 extends Node
 
-signal dialog_open(npc, text)
-signal dialog_close()
+signal dialog_open
+signal dialog_close
