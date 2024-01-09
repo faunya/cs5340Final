@@ -4,9 +4,9 @@ Cannot figure out how to set local directories as the source of an existing repo
 ## To Do
 - [ ] Dialog system
   - [x] Dialog window opens when hitting interact button and closes when leaving interaction area
-  - [ ] Continues to next line(s) of dialog
-  - [ ] Closes out dialog window when out of dialog
-  - [ ] Branching dialog with choices
+  - [X] Continues to next line(s) of dialog
+  - [X] Closes out dialog window when out of dialog
+  - [X] Branching dialog with choices
   - [ ] SFX
   - [ ] GUI
 - [ ] Combat System

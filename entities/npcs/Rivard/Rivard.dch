@@ -8,22 +8,21 @@
 "sound_moods": {},
 "style": "Style1"
 },
-"default_portrait": "dummy",
-"description": "he dum",
-"display_name": "Dummy",
+"default_portrait": "neutral",
+"description": "He's ur buddy :)",
+"display_name": "Rivard",
 "mirror": false,
-"nicknames": ["test dummy"],
+"nicknames": ["Buddy"],
 "offset": Vector2(0, 0),
 "portraits": {
-"dummy": {
+"neutral": {
 "export_overrides": {
-"image": "\"res://addons/dialogic/Example Assets/portraits/Jane/pl3 happy.png\""
+"image": ""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
-"scale": 1.0,
-"scene": "",
-"sound_mood": ""
+"scale": 1,
+"scene": ""
 }
 },
 "scale": 1.0

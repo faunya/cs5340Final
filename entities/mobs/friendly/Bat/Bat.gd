@@ -128,6 +128,8 @@ func seekTarget():
 		lookLast.target_position = target.global_position - global_position
 		lookLast.force_raycast_update()
 		state = States.CHASE
+	else:
+		state = States.IDLE
 
 #
 #func _exit_tree():

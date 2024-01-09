@@ -1,19 +1,21 @@
 extends "res://entities/Entity.gd"
 
 # Called when the node enters the scene tree for the first time.
-@onready var interactable = false
+var interactable
+var mouseIn
 
-@onready var selected = false
+var selected
 
 func _ready():
-	pass
-
+	interactable = false
+	mouseIn = false
+	selected = false
 
 func _physics_process(delta):
 	if interactable:
-		if Input.is_action_just_pressed("interact"): # && !interacting:
+		if Input.is_action_just_pressed("interact") && mouseIn: # && !interacting:
 			UiSignals.emit_signal("dialog_open","dummytest")
-			#startDialog()
+			
 		elif Input.is_action_just_pressed("cancel"):
 			UiSignals.emit_signal("dialog_close")
 
@@ -24,6 +26,8 @@ func _on_InteractArea_area_exited(area):
 	interactable = false
 	UiSignals.emit_signal("dialog_close")
 
-func startDialog():
-	pass
-	#Dialogic.start("dummytest")
+func _on_mouse_area_mouse_entered():
+	mouseIn = true
+
+func _on_mouse_area_mouse_exited():
+	mouseIn = false

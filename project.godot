@@ -19,15 +19,42 @@ config/icon="res://icon.svg"
 
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 UiSignals="*res://ui/UISignals.gd"
+Style1="*res://ui/dialogStyle/Style1.tres"
 
 [dialogic]
 
 directories/dch_directory={
-"Dummy": "res://entities/npcs/Dummy/Dummy.dch"
+"Dummy": "res://entities/npcs/Dummy/Dummy.dch",
+"Rivard": "res://entities/npcs/Rivard/Rivard.dch"
 }
 directories/dtl_directory={
-"dummytest": "res://ui/dialog/dummytest.dtl"
+"dummytest": "res://ui/dialog/dummytest.dtl",
+"load": "res://ui/dialog/load.dtl"
 }
+text/letter_speed=0.01
+text/initial_text_reveal_skippable=true
+text/text_reveal_skip_delay=0.1
+text/autoadvance_per_character_delay=0.1
+text/autoadvance_ignored_characters_enabled=true
+animations/join_default_length=0.5
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/join_default_wait=true
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+save/encryption_on_exports_only=true
+text/autopauses={}
+layout/style_list=["res://ui/dialogStyle/Style1.tres"]
+layout/default_style="res://ui/dialogStyle/Style1.tres"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
@@ -88,3 +115,13 @@ cancel={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Companion"
+2d_physics/layer_3="Hostile"
+2d_physics/layer_4="Neutral"
+2d_physics/layer_5="Friendly"
+2d_physics/layer_9="pAttack"
+2d_physics/layer_13="hAttack"

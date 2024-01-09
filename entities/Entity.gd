@@ -36,7 +36,6 @@ func stopMove(delta):
 func move():
 	set_velocity(mVel)
 	move_and_slide()
-	mVel = mVel
 
 func tkDmg(dmg, spcDmg, spcType):
 	pass
