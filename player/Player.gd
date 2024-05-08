@@ -43,7 +43,7 @@ func _physics_process(delta):
 		States.MOVE:
 			moveState(delta)
 		States.DASH:
-			pass
+			dashState(delta)
 		States.ATTACK:
 			attackState(delta)
 		States.INTERACT:
@@ -63,20 +63,49 @@ func moveState(delta):
 		MAXSPD = walkSpd
 	
 	var input = moveInput()
-	if (input != Vector2.ZERO):
-		if (hDir == -1): #face left
+	
+	if (input != Vector2.ZERO): #moving
+		if input.x == -1:
 			animPlayer.play("walkLeft")
-		else: #face right
+		elif input.x == 1:
 			animPlayer.play("walkRight")
-	else:
-		if (hDir == -1): #face left
+		elif input.y == 1:
+			animPlayer.play("walkDown")
+		elif input.y == -1:
+			animPlayer.play("walkUp")
+		
+	else: #idle
+		if faceDir.x == -1:
 			animPlayer.play("idleLeft")
-		else:
+		elif faceDir.x == 1:
 			animPlayer.play("idleRight")
+		elif faceDir.y == 1:
+			animPlayer.play("idleDown")
+		elif faceDir.y == -1:
+			animPlayer.play("idleUp")
+		
+		
 	movement(delta, input)
+	
+	#horizontal sprites only
+	#if (input != Vector2.ZERO):
+		#if (hDir == -1): #face left
+			#animPlayer.play("walkLeft")
+		#else: #face right
+			#animPlayer.play("walkRight")
+	#else:
+		#if (hDir == -1): #face left
+			#animPlayer.play("idleLeft")
+		#else:
+			#animPlayer.play("idleRight")
 
 func attackState(delta):
 	#movement(delta, Vector2())
+	weapon.playAnim()
+	
+	FRICTION = 300
+	stopMove(delta)
+	FRICTION = 800
 	match faceDir:
 		Vector2(1,0):
 			animPlayer.play("attackRight")
@@ -94,14 +123,13 @@ func attackState(delta):
 			animPlayer.play("attackUpLeft")
 		Vector2(0,-1):
 			animPlayer.play("attackUp")
-	weapon.playAnim()
-	stopMove(delta)
 	#move() #very jumpy
 
 func dashState(delta):
 	MAXSPD = dashSpd
 	movement(delta, faceDir)
 	MAXSPD = walkSpd
+	setState("move")
 	print(state)
 
 func interactState():

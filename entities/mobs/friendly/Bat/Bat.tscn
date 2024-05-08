@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqva61gb6hxm0"]
+[gd_scene load_steps=14 format=3 uid="uid://dqva61gb6hxm0"]
 
 [ext_resource type="Texture2D" uid="uid://ch3sc6skr0uyg" path="res://entities/mobs/friendly/textures/Bat.png" id="1"]
 [ext_resource type="Script" path="res://entities/mobs/friendly/Bat/Bat.gd" id="2"]
 [ext_resource type="PackedScene" path="res://entities/ai/HurtBox.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://entities/ai/Detect.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://entities/ai/HitBox.tscn" id="5_xif1b"]
 
 [sub_resource type="CapsuleShape2D" id="4"]
 radius = 2.5
@@ -18,6 +19,47 @@ size = Vector2(14, 12)
 [sub_resource type="CircleShape2D" id="5"]
 radius = 200.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qbr3"]
+size = Vector2(12, 12)
+
+[sub_resource type="Animation" id="Animation_sspq2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dgl11"]
+resource_name = "idle"
+length = 0.50001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_88emm"]
+_data = {
+"RESET": SubResource("Animation_sspq2"),
+"idle": SubResource("Animation_dgl11")
+}
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 0
@@ -26,7 +68,7 @@ script = ExtResource("2")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8.5)
 texture = ExtResource("1")
-hframes = 6
+hframes = 5
 
 [node name="LookFirst" type="RayCast2D" parent="."]
 position = Vector2(0, -12.449)
@@ -42,12 +84,14 @@ rotation = 1.5708
 shape = SubResource("4")
 
 [node name="Detect" parent="." instance=ExtResource("4")]
+visible = false
 collision_mask = 1
 
 [node name="CollisionShape2D" parent="Detect" index="0"]
 shape = SubResource("3")
 
 [node name="HurtBox" parent="." instance=ExtResource("3")]
+visible = false
 collision_layer = 4
 collision_mask = 256
 
@@ -56,6 +100,7 @@ position = Vector2(0, -12.6988)
 shape = SubResource("2")
 
 [node name="Chase" parent="." instance=ExtResource("4")]
+visible = false
 collision_mask = 1
 
 [node name="CollisionShape2D" parent="Chase" index="0"]
@@ -65,8 +110,21 @@ shape = SubResource("5")
 wait_time = 0.1
 one_shot = true
 
+[node name="HitBox" parent="." instance=ExtResource("5_xif1b")]
+collision_mask = 1
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_6qbr3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_88emm")
+}
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 
 [editable path="Detect"]
 [editable path="HurtBox"]
 [editable path="Chase"]
+[editable path="HitBox"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxlxxb4klpn14"
-path="res://.godot/imported/chartempv2leftarm.png-26759568b5f02937907e02d5d69d036c.ctex"
+uid="uid://b4m08dhag6r2v"
+path="res://.godot/imported/slash.png-a42069638b19352a0a8d92b307b940ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/textures/chartempv2leftarm.png"
-dest_files=["res://.godot/imported/chartempv2leftarm.png-26759568b5f02937907e02d5d69d036c.ctex"]
+source_file="res://player/textures/old/slash.png"
+dest_files=["res://.godot/imported/slash.png-a42069638b19352a0a8d92b307b940ec.ctex"]
 
 [params]
 

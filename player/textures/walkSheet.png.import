@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr58q5uh113ek"
-path="res://.godot/imported/chartempv2legs.png-d75c5a3a049bd1a96fb3a231ae2df5bb.ctex"
+uid="uid://b03mrsvod38rm"
+path="res://.godot/imported/walkSheet.png-967e9e53756d0a518be7a6ce4a794362.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/textures/chartempv2legs.png"
-dest_files=["res://.godot/imported/chartempv2legs.png-d75c5a3a049bd1a96fb3a231ae2df5bb.ctex"]
+source_file="res://player/textures/walkSheet.png"
+dest_files=["res://.godot/imported/walkSheet.png-967e9e53756d0a518be7a6ce4a794362.ctex"]
 
 [params]
 

@@ -16,6 +16,10 @@ var thread
 @onready var chase = $Chase
 
 @onready var hurtBox = $HurtBox
+@onready var hitBox = $HitBox
+
+@onready var animPlay = $AnimationPlayer
+@onready var sprite = $Sprite2D
 
 var target = null
 var targets = []
@@ -51,6 +55,11 @@ func _physics_process(delta):
 	if hp == 0:
 		queue_free()
 	
+	if faceDir.x < 0:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
+	
 	#state machine
 	match state:
 		States.IDLE:
@@ -66,6 +75,7 @@ func _physics_process(delta):
 
 #states
 func idleState():
+	animPlay.play("idle")
 	seekTarget()
 
 func wanderState():
