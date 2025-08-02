@@ -1,14 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dqva61gb6hxm0"]
+[gd_scene load_steps=17 format=3 uid="uid://dqva61gb6hxm0"]
 
-[ext_resource type="Texture2D" uid="uid://ch3sc6skr0uyg" path="res://entities/mobs/friendly/textures/Bat.png" id="1"]
-[ext_resource type="Script" path="res://entities/mobs/friendly/Bat/Bat.gd" id="2"]
-[ext_resource type="PackedScene" path="res://entities/ai/HurtBox.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://entities/ai/Detect.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://entities/ai/HitBox.tscn" id="5_xif1b"]
-
-[sub_resource type="CapsuleShape2D" id="4"]
-radius = 2.5
-height = 5.0
+[ext_resource type="Texture2D" uid="uid://ch3sc6skr0uyg" path="res://entities/mobs/textures/Bat.png" id="1"]
+[ext_resource type="Script" uid="uid://c705t4n1w41jn" path="res://entities/mobs/friendly/Bat/Bat.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://ddbkxw7rjv6at" path="res://entities/ai/HurtBox.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dm5rqidd5jf8j" path="res://entities/ai/Detect.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://rdb1vvw1603s" path="res://entities/ai/HitBox.tscn" id="5_xif1b"]
+[ext_resource type="PackedScene" uid="uid://bpga8iw0kg7qe" path="res://entities/ai/soft_collision.tscn" id="6_pafcx"]
+[ext_resource type="Texture2D" uid="uid://tohnq8jwp1vv" path="res://entities/misc textures/SmallShadow.png" id="7_j36qe"]
 
 [sub_resource type="CircleShape2D" id="3"]
 radius = 100.0
@@ -20,7 +18,7 @@ size = Vector2(14, 12)
 radius = 200.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qbr3"]
-size = Vector2(12, 12)
+size = Vector2(13, 13)
 
 [sub_resource type="Animation" id="Animation_sspq2"]
 length = 0.001
@@ -56,35 +54,34 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_88emm"]
 _data = {
-"RESET": SubResource("Animation_sspq2"),
-"idle": SubResource("Animation_dgl11")
+&"RESET": SubResource("Animation_sspq2"),
+&"idle": SubResource("Animation_dgl11")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j36qe"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2u7rg"]
+radius = 5.0
 
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 32
 script = ExtResource("2")
+hp = 2
+MAXSPD = 100
+FRICTION = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8.5)
 texture = ExtResource("1")
 hframes = 5
 
-[node name="LookFirst" type="RayCast2D" parent="."]
-position = Vector2(0, -12.449)
-collision_mask = 256
-
 [node name="LookLast" type="RayCast2D" parent="."]
 position = Vector2(0, -12.4487)
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-rotation = 1.5708
-shape = SubResource("4")
+collision_mask = 32
 
 [node name="Detect" parent="." instance=ExtResource("4")]
-visible = false
 collision_mask = 1
 
 [node name="CollisionShape2D" parent="Detect" index="0"]
@@ -106,21 +103,35 @@ collision_mask = 1
 [node name="CollisionShape2D" parent="Chase" index="0"]
 shape = SubResource("5")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
 [node name="HitBox" parent="." instance=ExtResource("5_xif1b")]
+collision_layer = 4096
 collision_mask = 1
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_6qbr3")
+disabled = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_88emm")
+&"": SubResource("AnimationLibrary_88emm")
 }
+
+[node name="SoftCollision" parent="." instance=ExtResource("6_pafcx")]
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource("CircleShape2D_j36qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_2u7rg")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("7_j36qe")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 
@@ -128,3 +139,4 @@ libraries = {
 [editable path="HurtBox"]
 [editable path="Chase"]
 [editable path="HitBox"]
+[editable path="SoftCollision"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0vkcehgjsjy"]
 
-[ext_resource type="Script" path="res://addons/dialogic/Editor/Events/Fields/SinglelineText.gd" id="1"]
+[ext_resource type="Script" uid="uid://db1h1svik5sw2" path="res://addons/dialogic/Editor/Events/Fields/SinglelineText.gd" id="1"]
 
 [node name="SingleLineText" type="LineEdit"]
 offset_right = 1152.0

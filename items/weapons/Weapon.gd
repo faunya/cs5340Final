@@ -1,12 +1,14 @@
 extends Node2D
 
+signal animFinished
+
 enum DMGTYPE {
 	SLASH, #light/no armor
 	BLUNT, #heavy/mid armor, higher stun time & knockback
 	PIERCE #mid/light armor, higher crit chance, lower base dmg
 }
 
-@export var dmg: int #amt of standard dmg the weapon does
+@export var dmg: int = 1 #amt of standard dmg the weapon does
 @export var spDmg: int #amt of spc dmg the weapon does against certain targets
 @export var spType: DMGTYPE #type of special dmg
 @export var stunTm: float #how long target gets stunned
@@ -18,19 +20,7 @@ enum DMGTYPE {
 var hitList = [] #keeps track of targets hit
 
 func _ready():
-	dmg = 10
-	spDmg = 5
-	spType = DMGTYPE.SLASH
-	stunTm = 0.1
-	knBk = 10
-	
 	hitbox.setAll(dmg, spDmg, spType, stunTm, knBk)
-
-func _on_HitBox_area_entered(area):
-	if !hitList.has(area):
-		hitList.append(area)
-		area.tkDmg(dmg,spDmg,spType,stunTm,knBk)
-		
 
 func getDmg(target):
 	if hitList.has(target):
@@ -41,8 +31,17 @@ func getDmg(target):
 func clearHitList():
 	hitList.clear()
 
-func playAnim():
-	animPlayer.play("attack")
-
 func updateKbDir(vector):
 	hitbox.kbVector = vector.normalized()
+
+func playAtkLeft():
+	if animPlayer:
+		animPlayer.play("attackLeft")
+
+func playAtkRight():
+	if animPlayer:
+		animPlayer.play("attackRight")
+		
+
+func _on_animation_player_animation_finished(anim_name):
+	emit_signal("animFinished")

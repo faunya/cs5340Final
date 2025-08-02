@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnkck3hocbkk5"]
 
-[ext_resource type="Script" path="res://addons/dialogic/Editor/CharacterEditor/char_edit_section_general.gd" id="1_3e1i1"]
+[ext_resource type="Script" uid="uid://bpw1e250l3ogg" path="res://addons/dialogic/Editor/CharacterEditor/char_edit_section_general.gd" id="1_3e1i1"]
 
 [node name="General" type="GridContainer"]
 anchors_preset = 15

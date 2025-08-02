@@ -6,5 +6,6 @@ func _on_Timer_timeout():
 	end()
 
 func end():
-	player.shdwList.erase(self)
+	if player:
+		player.shdwList.erase(self)
 	queue_free()

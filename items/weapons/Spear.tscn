@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://euq4eeh7ddb6"]
 
-[ext_resource type="PackedScene" path="res://items/weapons/Weapon.tscn" id="1_vd4oo"]
+[ext_resource type="PackedScene" uid="uid://4h3oy2q8ipuu" path="res://items/weapons/Weapon.tscn" id="1_vd4oo"]
 
 [sub_resource type="Animation" id="3"]
 length = 0.001
@@ -36,16 +36,17 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p4fab"]
 _data = {
-"RESET": SubResource("3"),
-"attack": SubResource("2")
+&"RESET": SubResource("3"),
+&"attack": SubResource("2")
 }
 
 [node name="Weapon" instance=ExtResource("1_vd4oo")]
+dmg = 30
 spType = 2
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_p4fab")
+&"": SubResource("AnimationLibrary_p4fab")
 }
 
 [editable path="HitBox"]

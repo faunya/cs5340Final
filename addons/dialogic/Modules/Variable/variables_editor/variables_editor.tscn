@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6tdle4y5o03o"]
 
 [ext_resource type="PackedScene" uid="uid://glhi311f3lw5" path="res://addons/dialogic/Modules/Variable/variables_editor/variable_group.tscn" id="1"]
-[ext_resource type="Script" path="res://addons/dialogic/Modules/Variable/variables_editor/variables_editor.gd" id="2"]
+[ext_resource type="Script" uid="uid://d37ik1t5cikhx" path="res://addons/dialogic/Modules/Variable/variables_editor/variables_editor.gd" id="2"]
 
 [node name="VariablesEditor" type="HSplitContainer"]
 anchors_preset = 15

@@ -3,13 +3,13 @@ extends CharacterBody2D
 var state
 
 #stats
-var maxHp
-var hp
-var spd
+@export var maxHp = 1
+@export var hp = maxHp
+@export var spd = 1
 
-var MAXSPD
-var ACCELERATION
-var FRICTION
+@export var MAXSPD = 150
+@export var ACCELERATION = 1000
+@export var FRICTION = 800
 
 var mVel = Vector2()
 

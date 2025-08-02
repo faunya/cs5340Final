@@ -12,14 +12,16 @@ var thread
 
 @onready var detect = $Detect
 @onready var lookLast = $LookLast
-@onready var lookFirst = $LookFirst
 @onready var chase = $Chase
 
 @onready var hurtBox = $HurtBox
 @onready var hitBox = $HitBox
+@onready var softCollision = $SoftCollision
 
 @onready var animPlay = $AnimationPlayer
 @onready var sprite = $Sprite2D
+
+@export var dmg = 1
 
 var target = null
 var targets = []
@@ -35,15 +37,10 @@ var knockback = Vector2()
 #var ACCELERATION
 #var FRICTION
 func _ready():
-	hp = 20
 	state = States.IDLE
-	spd = 150
 	faceDir = Vector2()
-	MAXSPD = 100
-	ACCELERATION = 1000
-	
-	FRICTION = 300
 #	thread = Thread.new()
+	hitBox.setDmg(dmg)
 	
 
 func _physics_process(delta):
@@ -86,8 +83,10 @@ func hurtState():
 	
 func chaseState(delta):
 	if chase.target != null: #if in chase range
-#		thread.start(self, "trackThread")
 		trackTarget()
+		
+		if softCollision.isColliding():
+			faceDir += softCollision.getPushVector() * delta * 400
 		
 		if faceDir != Vector2():
 			movement(delta, faceDir)
@@ -99,12 +98,8 @@ func chaseState(delta):
 func attackState():
 	pass
 
-#func trackThread(userdata):
-#	while (true):
-#		trackTarget()
 
 func trackTarget():
-	#print(faceDir)
 	#raycasts to target
 	lookLast.target_position = target.global_position - global_position
 	lookLast.force_raycast_update()
@@ -112,25 +107,6 @@ func trackTarget():
 	#if raycast doesn't collide, is open path and enemy faces that way
 	if !lookLast.is_colliding():
 		faceDir = lookLast.target_position.normalized()
-	
-#	else:
-#		#goes through shdw list to see if any are visible
-#		for shdw in target.shdwList:
-#			#if shdw list is empty, ignore loop
-#			if target.shdwList.size() == 0:
-#				break
-#
-#			lookLast.cast_to = shdw.global_position - global_position
-#			lookLast.force_raycast_update()
-#
-#			#if visible, path to shadow is open and entity faces to it
-#			if !lookLast.is_colliding():
-#				faceDir = lookLast.cast_to.normalized()
-#				break
-#
-#			else:
-#				#if no shdws are visble, stops moving
-#				faceDir = Vector2()
 
 func seekTarget():
 	if detect.target != null:

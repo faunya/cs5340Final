@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://xtrpqbq685is"]
 
-[ext_resource type="Texture2D" uid="uid://bshq3n75duxry" path="res://entities/npcs/npc.png" id="1"]
-[ext_resource type="Script" path="res://entities/npcs/Dummy/Dummy.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bshq3n75duxry" path="res://entities/mobs/textures/npc.png" id="1"]
+[ext_resource type="Script" uid="uid://dpigokowpfxpx" path="res://entities/npcs/Dummy/Dummy.gd" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(14, 14)

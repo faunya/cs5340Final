@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dign131itj5fu"]
 
-[ext_resource type="Script" path="res://addons/dialogic/Modules/Converter/settings_converter.gd" id="1_3feab"]
+[ext_resource type="Script" uid="uid://cjjk60dkehose" path="res://addons/dialogic/Modules/Converter/settings_converter.gd" id="1_3feab"]
 
 [node name="Dialogic 1 Converter" type="PanelContainer"]
 anchors_preset = 15
