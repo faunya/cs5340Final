@@ -15,6 +15,7 @@ enum States {
 
 @onready var reactionTimer = $reactionTimer
 @onready var hitTimer = $hitTimer
+@onready var weapon = $Pivot/Weapon
 
 var knockback = Vector2()
 var target = null
@@ -23,6 +24,9 @@ var inAtkRange = false
 func _ready():
 	state = States.IDLE
 	faceDir = Vector2()
+	
+	if weapon:
+		weapon.connect("animFinished", finishedAtkAnim)
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
@@ -66,6 +70,10 @@ func chaseState(delta):
 
 func attackState():
 	pass
+	
+
+func finishedAtkAnim():
+	state = States.IDLE
 
 
 func _on_detect_area_entered(area):

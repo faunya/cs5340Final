@@ -243,7 +243,7 @@ _data = {
 &"attackRight": SubResource("Animation_y8k4y")
 }
 
-[node name="Longsword" instance=ExtResource("1_qm51o")]
+[node name="Weapon" instance=ExtResource("1_qm51o")]
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 shape = SubResource("CapsuleShape2D_eofrh")

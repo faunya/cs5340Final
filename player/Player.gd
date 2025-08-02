@@ -18,7 +18,7 @@ var dashDuration = 0.6
 
 @onready var animPlayer = $AnimPlayer
 @onready var fxAnimPlayer = $fxAnimPlayer
-@onready var weapon = $Weapon
+@onready var weapon = $Pivot/Weapon
 @onready var dashTmr = $dashTimer
 @onready var hurtbox = $HurtBox/CollisionShape2D
 
@@ -38,7 +38,8 @@ func _ready():
 	ACCELERATION = 1000
 	MAXSPD = walkSpd
 	
-	weapon.connect("animFinished", finishedAtkAnim)
+	if weapon:
+		weapon.connect("animFinished", finishedAtkAnim)
 
 
 func _physics_process(delta):
