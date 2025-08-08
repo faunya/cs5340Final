@@ -15,6 +15,7 @@ enum States {
 
 @onready var reactionTimer = $reactionTimer
 @onready var hitTimer = $hitTimer
+@onready var pivot = $Pivot
 @onready var weapon = $Pivot/Weapon
 
 var knockback = Vector2()
@@ -91,4 +92,13 @@ func _on_attack_area_exited(area):
 	print("out range")
 
 func _on_reaction_timer_timeout():
-	print("timed out")
+	if weapon:
+		var vectorToTarget = target.global_position - global_position
+		#vectorToTarget = vectorToTarget.normalize()
+		
+		var hDir = -1 if absf(vectorToTarget.x + 1) < absf(vectorToTarget.x - 1) else 1 
+		#pivot.look_at(target.global_position)
+		if hDir == -1:
+			weapon.playAtkRight()
+		else:
+			weapon.playAtkLeft()

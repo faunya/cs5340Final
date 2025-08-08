@@ -1962,10 +1962,9 @@ offset_right = 20.0
 offset_bottom = 22.454
 
 [node name="Pivot" type="Marker2D" parent="."]
-position = Vector2(0, -13.601)
+position = Vector2(0, -13.5)
 
 [node name="Weapon" parent="Pivot" instance=ExtResource("5")]
-position = Vector2(0, -0.399)
 
 [node name="HurtBox" parent="." instance=ExtResource("4")]
 position = Vector2(0, -13.601)
