@@ -71,7 +71,6 @@ func chaseState(delta):
 
 func attackState():
 	pass
-	
 
 func finishedAtkAnim():
 	state = States.IDLE
@@ -92,13 +91,38 @@ func _on_attack_area_exited(area):
 	print("out range")
 
 func _on_reaction_timer_timeout():
-	if weapon:
-		var vectorToTarget = target.global_position - global_position
-		#vectorToTarget = vectorToTarget.normalize()
-		
-		var hDir = -1 if absf(vectorToTarget.x + 1) < absf(vectorToTarget.x - 1) else 1 
-		#pivot.look_at(target.global_position)
-		if hDir == -1:
-			weapon.playAtkRight()
-		else:
-			weapon.playAtkLeft()
+	if !weapon || !target:
+		return
+	
+	var vectorToTarget = target.global_position - pivot.global_position
+	vectorToTarget = vectorToTarget.normalized()
+	
+	var attackVector = Vector2(roundi(vectorToTarget.x), roundi(vectorToTarget.y))
+	var attackAngle = getAttackAngle(attackVector)
+	
+	var hDir = -1 if absf(vectorToTarget.x + 1) < absf(vectorToTarget.x - 1) else 1 
+	if hDir == -1:
+		weapon.playAtkLeft() 
+		pivot.rotation = deg_to_rad(attackAngle)
+	else:
+		weapon.playAtkRight()
+		pivot.rotation = deg_to_rad(-1 * attackAngle)
+	
+
+func getAttackAngle(attackVector):
+	var attackAngle
+	match attackVector:
+		Vector2(1, 0), Vector2(-1, 0): #right, left
+			attackAngle = 0
+		Vector2(0, -1): #up
+			attackAngle = 90
+		Vector2(0, 1): #down
+			attackAngle = 270
+		Vector2(1,1), Vector2(-1, 1):#down right, down left
+			attackAngle = 315
+		Vector2(1, -1), Vector2(-1, -1): #up right, up left
+			attackAngle = 45
+		_:
+			attackAngle = 0
+	
+	return attackAngle
