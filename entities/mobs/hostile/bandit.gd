@@ -100,11 +100,12 @@ func _on_reaction_timer_timeout():
 	var attackVector = Vector2(roundi(vectorToTarget.x), roundi(vectorToTarget.y))
 	var attackAngle = getAttackAngle(attackVector)
 	
-	var hDir = -1 if absf(vectorToTarget.x + 1) < absf(vectorToTarget.x - 1) else 1 
-	if hDir == -1:
+	var hDir = -1 if absf(vectorToTarget.x + 1) < absf(vectorToTarget.x - 1) \
+		else 1 
+	if hDir == -1: # left
 		weapon.playAtkLeft() 
 		pivot.rotation = deg_to_rad(attackAngle)
-	else:
+	else: #right
 		weapon.playAtkRight()
 		pivot.rotation = deg_to_rad(-1 * attackAngle)
 	
