@@ -16,8 +16,11 @@ var tween: Tween
 var dashVelocity = 0.0
 var dashDuration = 0.6
 
+@onready var spriteBase = $base
 @onready var animPlayer = $AnimPlayer
 @onready var fxAnimPlayer = $fxAnimPlayer
+
+@onready var shaker: = Shaker.new(spriteBase)
 
 @onready var weapon = $Pivot/Weapon
 @onready var pivot = $Pivot
@@ -150,10 +153,10 @@ func setState(nextState):
 func _on_hurt_box_area_entered(area):
 	if state == States.DASH:
 		return
-	print('hit')
+		
+	shaker.shake(2, 0.2)
 	fxAnimPlayer.play("hurtBlink");
 	hp -= area.dmg
-	print(hp)
 	UiSignals.hpUpdated.emit(hp)
 
 

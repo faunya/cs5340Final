@@ -83,8 +83,11 @@ hp = 1
 [node name="Dummy" parent="ysort" instance=ExtResource("3_ruefi")]
 position = Vector2(415, 176)
 
+[node name="Bandit2" parent="ysort" instance=ExtResource("10_fyhu2")]
+position = Vector2(706, 228)
+
 [node name="Bandit" parent="ysort" instance=ExtResource("10_fyhu2")]
-position = Vector2(581, 115)
+position = Vector2(580, 126)
 
 [node name="Player" parent="ysort" instance=ExtResource("4_bj8t5")]
 position = Vector2(526, 295)

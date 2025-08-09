@@ -854,6 +854,54 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("base/face:material:shader_parameter/flashEnabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("base/legs:material:shader_parameter/flashEnabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("base/chest:material:shader_parameter/flashEnabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("base/head:material:shader_parameter/flashEnabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_aqcbf"]
 resource_name = "hurtBlink"
@@ -866,6 +914,54 @@ tracks/0/path = NodePath("base:material:shader_parameter/flashEnabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("base/head:material:shader_parameter/flashEnabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("base/face:material:shader_parameter/flashEnabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("base/legs:material:shader_parameter/flashEnabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("base/chest:material:shader_parameter/flashEnabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -921,18 +1017,22 @@ texture = ExtResource("5_72m3a")
 hframes = 5
 
 [node name="face" type="Sprite2D" parent="base"]
+material = ExtResource("4_1lksi")
 texture = ExtResource("6_35wn5")
 hframes = 5
 
 [node name="legs" type="Sprite2D" parent="base"]
+material = ExtResource("4_1lksi")
 texture = ExtResource("7_a64pr")
 hframes = 5
 
 [node name="chest" type="Sprite2D" parent="base"]
+material = ExtResource("4_1lksi")
 texture = ExtResource("8_4wffq")
 hframes = 5
 
 [node name="head" type="Sprite2D" parent="base"]
+material = ExtResource("4_1lksi")
 texture = ExtResource("9_d4a1x")
 hframes = 5
 
@@ -944,7 +1044,6 @@ position = Vector2(0, -13.5)
 [node name="HitBox" parent="Pivot/Weapon" index="0"]
 collision_layer = 4096
 collision_mask = 1
-monitorable = false
 
 [node name="HurtBox" parent="." instance=ExtResource("11_xkmt3")]
 visible = false

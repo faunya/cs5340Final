@@ -1,5 +1,7 @@
 extends "res://entities/Entity.gd"
 
+const PARTICLE_BURST_SPARK = preload("res://fx/particle/particle_burst_sparks.tscn")
+
 enum States {
 	IDLE,
 	WANDER,
@@ -13,8 +15,11 @@ enum States {
 
 @export var atk = 1
 
+@onready var spriteBase = $base
 @onready var animPlayer = $AnimPlayer
 @onready var fxAnimPlayer = $fxAnimPlayer
+
+@onready var shaker: = Shaker.new(spriteBase)
 
 @onready var reactionTimer = $reactionTimer
 @onready var hitTimer = $hitTimer
@@ -135,5 +140,10 @@ func _on_reaction_timer_timeout():
 		pivot.rotation = deg_to_rad(-1 * attackAngle)
 
 func _on_hurt_box_area_entered(area):
+	var sparkParticle = PARTICLE_BURST_SPARK.instantiate()
+	get_tree().current_scene.add_child(sparkParticle)
+	sparkParticle.global_position = spriteBase.global_position
+	
 	fxAnimPlayer.play("hurtBlink");
+	shaker.shake(2, 0.2)
 	hp -= area.dmg

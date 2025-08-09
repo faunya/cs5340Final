@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://7gvd2y2araop"]
+[gd_scene load_steps=36 format=3 uid="uid://7gvd2y2araop"]
 
 [ext_resource type="Script" uid="uid://bvqejjjtgef0w" path="res://player/Player.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://4rufo548v3is" path="res://textures/entities/human/attackSpriteSheetv2.png" id="2_dr1jm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://co566v2t0bms7" path="res://items/weapons/Longsword.tscn" id="5"]
 [ext_resource type="Texture2D" uid="uid://cx7i7exq2cvk1" path="res://textures/entities/human/char.png" id="5_5qrx2"]
 [ext_resource type="Texture2D" uid="uid://dcr71ujv1qd6y" path="res://textures/equipment/face/eyes1.png" id="6_b32pr"]
+[ext_resource type="Material" uid="uid://do5m77pv50vn0" path="res://shaders/flash_red.tres" id="6_hbkom"]
 [ext_resource type="Texture2D" uid="uid://dlaujbv0vfjtl" path="res://textures/equipment/legs/knight_greaves_rusty.png" id="7_5qrx2"]
 [ext_resource type="Texture2D" uid="uid://caae1cwrqd2p" path="res://textures/equipment/chest/knight_chestplate_rusty.png" id="8_b32pr"]
 [ext_resource type="Texture2D" uid="uid://bmm8e5d2xw6tp" path="res://textures/equipment/head/knight_helmet_tudor_rusty.png" id="9_hbkom"]
@@ -24,7 +25,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [7]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1849,22 +1850,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("base/ColorRect:color")
+tracks/0/path = NodePath("base:material:shader_parameter/flashEnabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("base/ColorRect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1873,30 +1862,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_aqcbf"]
 resource_name = "hurtBlink"
-length = 0.6
+length = 0.2
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("base/ColorRect:color")
+tracks/0/path = NodePath("base:material:shader_parameter/flashEnabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("base/ColorRect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false, true, false, true, false]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gskgj"]
@@ -1932,34 +1910,32 @@ shape = SubResource("1")
 
 [node name="base" type="Sprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("6_hbkom")
 position = Vector2(0, -13.5)
-texture = ExtResource("2_dr1jm")
-hframes = 6
-vframes = 5
-frame = 7
+texture = ExtResource("4_ijwoa")
+hframes = 4
+vframes = 3
+frame = 11
 
 [node name="face" type="Sprite2D" parent="base"]
+material = ExtResource("6_hbkom")
 texture = ExtResource("6_b32pr")
 hframes = 5
 
 [node name="legs" type="Sprite2D" parent="base"]
+material = ExtResource("6_hbkom")
 texture = ExtResource("7_5qrx2")
 hframes = 5
 
 [node name="chest" type="Sprite2D" parent="base"]
+material = ExtResource("6_hbkom")
 texture = ExtResource("8_b32pr")
 hframes = 5
 
 [node name="head" type="Sprite2D" parent="base"]
+material = ExtResource("6_hbkom")
 texture = ExtResource("9_hbkom")
 hframes = 5
-
-[node name="ColorRect" type="ColorRect" parent="base"]
-visible = false
-offset_left = -20.0
-offset_top = -17.546
-offset_right = 20.0
-offset_bottom = 22.454
 
 [node name="Pivot" type="Marker2D" parent="."]
 position = Vector2(0, -13.5)
