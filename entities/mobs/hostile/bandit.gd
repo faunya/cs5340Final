@@ -8,10 +8,13 @@ enum States {
 	ATTACK
 }
 #range of how long it takes for enemy to attack
-@export var atkReactionLow = .5
+@export var atkReactionLow = 1
 @export var atkReactionHigh = 1
 
 @export var atk = 1
+
+@onready var animPlayer = $AnimPlayer
+@onready var fxAnimPlayer = $fxAnimPlayer
 
 @onready var reactionTimer = $reactionTimer
 @onready var hitTimer = $hitTimer
@@ -21,10 +24,11 @@ enum States {
 var knockback = Vector2()
 var target = null
 var inAtkRange = false
+var moveDir = Vector2.ZERO
 
 func _ready():
+	hp = maxHp
 	state = States.IDLE
-	faceDir = Vector2()
 	
 	if weapon:
 		weapon.connect("animFinished", finishedAtkAnim)
@@ -36,12 +40,7 @@ func _physics_process(delta):
 	knockback = velocity
 	
 	if hp == 0:
-		queue_free()
-	
-	if faceDir.x < 0:
-		pass #sprite.flip_h = true
-	else:
-		pass #sprite.flip_h = false
+		pass#queue_free()
 	
 	#state machine
 	match state:
@@ -53,8 +52,12 @@ func _physics_process(delta):
 			chaseState(delta)
 		States.ATTACK:
 			attackState()
+	
+	
+	
 
 func idleState():
+	playIdleMoveAnim()
 	if target:
 		state = States.CHASE
 
@@ -66,15 +69,33 @@ func chaseState(delta):
 		reactionTimer.wait_time = randf_range(atkReactionLow, atkReactionHigh)
 		reactionTimer.start()
 		state = States.ATTACK
+	elif target && !inAtkRange:
+		#if softCollision.isColliding():
+		#	moveDir += softCollision.getPushVector() * delta * 400
+		
+		if moveDir != Vector2():
+			movement(delta, moveDir)
 	else:
 		state = States.IDLE
 
 func attackState():
-	pass
+	if !inAtkRange:
+		state = States.CHASE
 
 func finishedAtkAnim():
 	state = States.IDLE
 
+func playIdleMoveAnim():
+	if (moveDir != Vector2.ZERO):
+		if (hDir == -1): #face left
+			animPlayer.play("walkLeft")
+		else: #face right
+			animPlayer.play("walkRight")
+	else:
+		if (hDir == -1): #face left
+			animPlayer.play("idleLeft")
+		else:
+			animPlayer.play("idleRight")
 
 func _on_detect_area_entered(area):
 	target = area
@@ -82,16 +103,17 @@ func _on_detect_area_entered(area):
 func _on_chase_area_exited(area):
 	target = null
 
+### attack section ----------------------------------------------------------
 func _on_attack_area_entered(area):
 	inAtkRange = true
-	print("in range")
 
 func _on_attack_area_exited(area):
 	inAtkRange = false
-	print("out range")
+	#reactionTimer.stop()
 
+#attacks after timer runs out
 func _on_reaction_timer_timeout():
-	if !weapon || !target:
+	if !weapon || !target || !inAtkRange:
 		return
 	
 	var vectorToTarget = target.global_position - pivot.global_position
@@ -102,28 +124,16 @@ func _on_reaction_timer_timeout():
 	
 	var hDir = -1 if absf(vectorToTarget.x + 1) < absf(vectorToTarget.x - 1) \
 		else 1 
+	
 	if hDir == -1: # left
+		animPlayer.play("idleLeft")
 		weapon.playAtkLeft() 
 		pivot.rotation = deg_to_rad(attackAngle)
 	else: #right
+		animPlayer.play("idleRight")
 		weapon.playAtkRight()
 		pivot.rotation = deg_to_rad(-1 * attackAngle)
-	
 
-func getAttackAngle(attackVector):
-	var attackAngle
-	match attackVector:
-		Vector2(1, 0), Vector2(-1, 0): #right, left
-			attackAngle = 0
-		Vector2(0, -1): #up
-			attackAngle = 90
-		Vector2(0, 1): #down
-			attackAngle = 270
-		Vector2(1,1), Vector2(-1, 1):#down right, down left
-			attackAngle = 315
-		Vector2(1, -1), Vector2(-1, -1): #up right, up left
-			attackAngle = 45
-		_:
-			attackAngle = 0
-	
-	return attackAngle
+func _on_hurt_box_area_entered(area):
+	fxAnimPlayer.play("hurtBlink");
+	hp -= area.dmg

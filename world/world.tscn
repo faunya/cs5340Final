@@ -109,3 +109,5 @@ offset_top = 7.0
 offset_right = 52.0
 offset_bottom = 18.0
 scale = Vector2(4, 4)
+
+[node name="SubViewport" type="SubViewport" parent="."]

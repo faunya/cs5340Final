@@ -39,3 +39,21 @@ func move():
 
 func tkDmg(dmg, spcDmg, spcType):
 	pass
+
+func getAttackAngle(attackVector):
+	var attackAngle
+	match attackVector:
+		Vector2(1, 0), Vector2(-1, 0): #right, left
+			attackAngle = 0
+		Vector2(0, -1): #up
+			attackAngle = 90
+		Vector2(0, 1): #down
+			attackAngle = 270
+		Vector2(1,1), Vector2(-1, 1):#down right, down left
+			attackAngle = 315
+		Vector2(1, -1), Vector2(-1, -1): #up right, up left
+			attackAngle = 45
+		_:
+			attackAngle = 0
+	
+	return attackAngle

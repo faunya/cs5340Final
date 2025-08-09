@@ -18,7 +18,10 @@ var dashDuration = 0.6
 
 @onready var animPlayer = $AnimPlayer
 @onready var fxAnimPlayer = $fxAnimPlayer
+
 @onready var weapon = $Pivot/Weapon
+@onready var pivot = $Pivot
+
 @onready var dashTmr = $dashTimer
 @onready var hurtbox = $HurtBox/CollisionShape2D
 
@@ -72,28 +75,6 @@ func moveState(delta):
 		MAXSPD = walkSpd
 	
 	var input = moveInput()
-	
-	#4 direction animations
-	#if (input != Vector2.ZERO): #moving
-		#if input.x == -1:
-			#animPlayer.play("walkLeft")
-		#elif input.x == 1:
-			#animPlayer.play("walkRight")
-		#elif input.y == 1:
-			#animPlayer.play("walkDown")
-		#elif input.y == -1:
-			#animPlayer.play("walkUp")
-		#
-	#else: #idle
-		#if faceDir.x == -1:
-			#animPlayer.play("idleLeft")
-		#elif faceDir.x == 1:
-			#animPlayer.play("idleRight")
-		#elif faceDir.y == 1:
-			#animPlayer.play("idleDown")
-		#elif faceDir.y == -1:
-			#animPlayer.play("idleUp")
-		
 		
 	movement(delta, input)
 	
@@ -110,34 +91,20 @@ func moveState(delta):
 			animPlayer.play("idleRight")
 
 func attackState(delta):
-	#movement(delta, Vector2())
-	
 	FRICTION = 300
 	stopMove(delta)
 	FRICTION = 800
 	
-	if (hDir == -1): #face left
-		weapon.playAtkLeft()
-	else: #face right
+	var attackAngle = getAttackAngle(faceDir)
+	
+	if hDir == -1: # left
+		animPlayer.play("idleLeft")
+		weapon.playAtkLeft() 
+		pivot.rotation = deg_to_rad(attackAngle)
+	else: #right
+		animPlayer.play("idleRight")
 		weapon.playAtkRight()
-	#match faceDir:
-		#Vector2(1,0):
-			#animPlayer.play("attackRight")
-		#Vector2(-1,0):
-			#animPlayer.play("attackLeft")
-		#Vector2(1,1):
-			#animPlayer.play("attackDownRight")
-		#Vector2(-1,1):
-			#animPlayer.play("attackDownLeft")
-		#Vector2(0,1):
-			#animPlayer.play("attackDown")
-		#Vector2(1,-1):
-			#animPlayer.play("attackUpRight")
-		#Vector2(-1,-1):
-			#animPlayer.play("attackUpLeft")
-		#Vector2(0,-1):
-			#animPlayer.play("attackUp")
-	#move() #very jumpy
+		pivot.rotation = deg_to_rad(-1 * attackAngle)
 
 func dashState(delta):
 	print("dash")
