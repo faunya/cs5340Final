@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqnkmynf6ys4u"]
+
+[ext_resource type="Texture2D" uid="uid://jh8aeoxahb27" path="res://textures/world/buildings/building1.png" id="1_benci"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tykl7"]
+size = Vector2(173, 93)
+
+[node name="VillageHouse1" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, -97)
+texture = ExtResource("1_benci")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10.5, -46.5)
+shape = SubResource("RectangleShape2D_tykl7")

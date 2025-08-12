@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://i1fvax3gkbyw"]
 
-[ext_resource type="Texture2D" uid="uid://c8k0wjavk5sj2" path="res://textures/world/tree1.png" id="1_n2tt5"]
+[ext_resource type="Texture2D" uid="uid://c8k0wjavk5sj2" path="res://textures/world/vegetation/tree1.png" id="1_n2tt5"]
 [ext_resource type="Script" uid="uid://xo04txtf1rrc" path="res://world/props/outdoors/tree_1.gd" id="1_ypv46"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n2tt5"]
 radius = 9.0
 height = 34.0
 
-[node name="Tree" type="StaticBody2D"]
+[node name="SmallTree" type="StaticBody2D"]
 collision_layer = 32
 script = ExtResource("1_ypv46")
 
@@ -21,6 +21,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_n2tt5")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]

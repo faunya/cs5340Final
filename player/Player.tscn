@@ -1893,6 +1893,7 @@ size = Vector2(10, 25)
 collision_mask = 32
 script = ExtResource("2")
 maxHp = 3
+spd = 100000
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1905,13 +1906,13 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.216)
+position = Vector2(0, -2.216)
 shape = SubResource("1")
 
 [node name="base" type="Sprite2D" parent="."]
 texture_filter = 1
 material = ExtResource("6_hbkom")
-position = Vector2(0, -13.5)
+position = Vector2(0, -15.5)
 texture = ExtResource("4_ijwoa")
 hframes = 4
 vframes = 3
@@ -1938,12 +1939,12 @@ texture = ExtResource("9_hbkom")
 hframes = 5
 
 [node name="Pivot" type="Marker2D" parent="."]
-position = Vector2(0, -13.5)
+position = Vector2(0, -15.5)
 
 [node name="Weapon" parent="Pivot" instance=ExtResource("5")]
 
 [node name="HurtBox" parent="." instance=ExtResource("4")]
-position = Vector2(0, -13.601)
+position = Vector2(0, -15.601)
 collision_layer = 1
 collision_mask = 4096
 

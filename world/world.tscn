@@ -3,12 +3,12 @@
 [ext_resource type="TileSet" uid="uid://d3xc3hotag3x" path="res://textures/world/tilemap/grass.tres" id="1_0t83y"]
 [ext_resource type="Script" uid="uid://ci7y2vrpag20t" path="res://world/world.gd" id="1_57b1q"]
 [ext_resource type="Texture2D" uid="uid://bxby3qm15qix8" path="res://textures/world/tilemap/grasstile1.png" id="2_ai45w"]
-[ext_resource type="PackedScene" uid="uid://dqva61gb6hxm0" path="res://entities/mobs/friendly/Bat/Bat.tscn" id="2_me67v"]
-[ext_resource type="PackedScene" uid="uid://xtrpqbq685is" path="res://entities/npcs/Dummy/Dummy.tscn" id="3_ruefi"]
+[ext_resource type="PackedScene" uid="uid://bbxucognd0sm3" path="res://world/props/buildings/building2.tscn" id="3_mad0u"]
+[ext_resource type="PackedScene" uid="uid://cqnkmynf6ys4u" path="res://world/props/buildings/building1.tscn" id="3_ov2xu"]
 [ext_resource type="PackedScene" uid="uid://7gvd2y2araop" path="res://player/Player.tscn" id="4_bj8t5"]
 [ext_resource type="Script" uid="uid://bmyjhs5i7xx2y" path="res://ui/PlayerCamera.gd" id="6_aee20"]
 [ext_resource type="PackedScene" uid="uid://dffmq8s70w7gt" path="res://ui/hp_ui.tscn" id="8_ai45w"]
-[ext_resource type="PackedScene" uid="uid://i1fvax3gkbyw" path="res://world/props/outdoors/tree1.tscn" id="9_4papg"]
+[ext_resource type="PackedScene" uid="uid://i1fvax3gkbyw" path="res://world/props/outdoors/smallTree.tscn" id="9_4papg"]
 [ext_resource type="PackedScene" uid="uid://buv27syiik7qi" path="res://entities/mobs/hostile/Bandit.tscn" id="10_fyhu2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4papg"]
@@ -55,40 +55,6 @@ tile_set = SubResource("TileSet_fyhu2")
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Buildings" type="TileMapLayer" parent="ysort"]
-use_parent_material = true
-position = Vector2(526, 295)
-tile_set = ExtResource("1_0t83y")
-
-[node name="Tree" parent="ysort" instance=ExtResource("9_4papg")]
-position = Vector2(389, 153)
-
-[node name="Props" type="TileMapLayer" parent="ysort"]
-use_parent_material = true
-position = Vector2(526, 295)
-tile_set = ExtResource("1_0t83y")
-
-[node name="Bat3" parent="ysort" instance=ExtResource("2_me67v")]
-position = Vector2(337, 314)
-hp = 1
-
-[node name="Bat2" parent="ysort" instance=ExtResource("2_me67v")]
-position = Vector2(645, 442)
-hp = 1
-
-[node name="Bat" parent="ysort" instance=ExtResource("2_me67v")]
-position = Vector2(814, 330)
-hp = 1
-
-[node name="Dummy" parent="ysort" instance=ExtResource("3_ruefi")]
-position = Vector2(415, 176)
-
-[node name="Bandit2" parent="ysort" instance=ExtResource("10_fyhu2")]
-position = Vector2(706, 228)
-
-[node name="Bandit" parent="ysort" instance=ExtResource("10_fyhu2")]
-position = Vector2(580, 126)
-
 [node name="Player" parent="ysort" instance=ExtResource("4_bj8t5")]
 position = Vector2(526, 295)
 hp = 3
@@ -99,6 +65,49 @@ zoom = Vector2(2, 2)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("6_aee20")
+
+[node name="entities" type="Node2D" parent="ysort"]
+y_sort_enabled = true
+
+[node name="Bandit" parent="ysort/entities" instance=ExtResource("10_fyhu2")]
+position = Vector2(744, 280)
+spriteFaceRight = true
+
+[node name="Bandit2" parent="ysort/entities" instance=ExtResource("10_fyhu2")]
+position = Vector2(726, 254)
+
+[node name="village buildings" type="Node2D" parent="ysort"]
+y_sort_enabled = true
+
+[node name="VillageHouse2" parent="ysort/village buildings" instance=ExtResource("3_mad0u")]
+position = Vector2(806, 229)
+
+[node name="VillageHouse3" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
+position = Vector2(1004, 220)
+
+[node name="VillageHouse1" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
+position = Vector2(580, 222)
+
+[node name="VillageHouse4" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
+position = Vector2(552, 497)
+
+[node name="trees" type="Node2D" parent="ysort"]
+y_sort_enabled = true
+position = Vector2(31, 1)
+
+[node name="SmallTree2" parent="ysort/trees" instance=ExtResource("9_4papg")]
+position = Vector2(699, 104)
+
+[node name="SmallTree" parent="ysort/trees" instance=ExtResource("9_4papg")]
+position = Vector2(657, 122)
+
+[node name="SmallTree3" parent="ysort/trees" instance=ExtResource("9_4papg")]
+position = Vector2(400, 229)
+
+[node name="Props" type="TileMapLayer" parent="ysort"]
+use_parent_material = true
+position = Vector2(526, 295)
+tile_set = ExtResource("1_0t83y")
 
 [node name="day_night" type="CanvasModulate" parent="."]
 visible = false

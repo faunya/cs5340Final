@@ -2,19 +2,24 @@ extends CharacterBody2D
 
 var state
 
-#stats
+@export_category("Stats")
 @export var maxHp = 1
 @export var hp = maxHp
 @export var spd = 1
 
-@export var MAXSPD = 150
-@export var ACCELERATION = 1000
 @export var FRICTION = 800
+
+@export_category("Visuals")
+@export var spriteFaceRight = false
 
 var mVel = Vector2()
 
 var faceDir = Vector2(0,1) #Where the character is facing
 var hDir = -1 #horizontal direction of char
+
+func _ready():
+	if spriteFaceRight:
+		hDir = 1
 
 #takes in Vector2 direction and moves the character in that direction at the
 #given speed
@@ -23,19 +28,16 @@ func movement(delta, dir):
 	direction = direction.normalized()
 	
 	if dir != Vector2():
-		mVel = mVel.move_toward(direction * MAXSPD, ACCELERATION * delta)
+		velocity = direction * spd
 	else:
-		mVel = mVel.move_toward(Vector2.ZERO, FRICTION * delta)
+		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 		
-	move()
+	move_and_slide()
 
 func stopMove(delta):
-	mVel = mVel.move_toward(Vector2.ZERO, FRICTION * delta)
-	move()
-
-func move():
-	set_velocity(mVel)
+	velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	move_and_slide()
+
 
 func tkDmg(dmg, spcDmg, spcType):
 	pass

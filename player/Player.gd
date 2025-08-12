@@ -4,7 +4,7 @@ enum States {
 	MOVE ,#able to move around
 	DASH , 
 	ATTACK,
-	INTERACT
+	PAUSE
 	}
 
 #movement variables
@@ -33,22 +33,24 @@ var dashDuration = 0.6
 #var hp
 #var spd
 #
-#var MAXSPD
-#var ACCELERATION
 #var FRICTION
 func _ready():
+	super()
 	spd = walkSpd
 	state = States.MOVE
 	
 	FRICTION = 800
-	ACCELERATION = 1000
-	MAXSPD = walkSpd
 	
 	if weapon:
 		weapon.connect("animFinished", finishedAtkAnim)
+	
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("dialogic_default_action"):
+		
+		#var dialogue = load("res://dialogue/start.dialogue")
+		pass#DialogueManager.show_dialogue_balloon(dialogue, "start")
 	if hp <= 0:
 		pass#queue_free()
 	
@@ -60,7 +62,7 @@ func _physics_process(delta):
 			dashState(delta)
 		States.ATTACK:
 			attackState(delta)
-		States.INTERACT:
+		States.PAUSE:
 			pass
 
 func moveState(delta):
@@ -73,13 +75,14 @@ func moveState(delta):
 	
 	#handles movement here
 	if Input.is_action_pressed("sprint"):
-		MAXSPD = runSpd
+		spd = runSpd
 	else:
-		MAXSPD = walkSpd
+		spd = walkSpd
 	
-	var input = moveInput()
-		
-	movement(delta, input)
+	var input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	velocity = input * spd
+	moveInput()
+	move_and_slide()
 	
 	#horizontal sprites only
 	if (input != Vector2.ZERO):
@@ -94,7 +97,7 @@ func moveState(delta):
 			animPlayer.play("idleRight")
 
 func attackState(delta):
-	FRICTION = 300
+	FRICTION = 500
 	stopMove(delta)
 	FRICTION = 800
 	
@@ -110,9 +113,8 @@ func attackState(delta):
 		pivot.rotation = deg_to_rad(-1 * attackAngle)
 
 func dashState(delta):
-	print("dash")
 	#hurtbox.disabled = true
-	velocity = faceDir  * dashSpd
+	velocity = faceDir * dashSpd
 	velocity = velocity.normalized() * dashSpd
 	move_and_slide()
 	#setState("move")
@@ -161,7 +163,6 @@ func _on_hurt_box_area_entered(area):
 
 
 func _on_dash_timer_timeout():
-	print("done")
 	setState("move")
 
 func finishedAtkAnim():

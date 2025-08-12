@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://buv27syiik7qi"]
+[gd_scene load_steps=28 format=3 uid="uid://buv27syiik7qi"]
 
 [ext_resource type="Script" uid="uid://bhbkji5rd38u2" path="res://entities/mobs/hostile/bandit.gd" id="1_1lksi"]
 [ext_resource type="Texture2D" uid="uid://pmp86apdfqxy" path="res://textures/entities/human/old/walkSpriteSheetv2.png" id="2_cl8ss"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://decfvgu7w2kxd" path="res://textures/equipment/head/bandana_red.png" id="9_d4a1x"]
 [ext_resource type="PackedScene" uid="uid://co566v2t0bms7" path="res://items/weapons/Longsword.tscn" id="10_vxoyl"]
 [ext_resource type="PackedScene" uid="uid://ddbkxw7rjv6at" path="res://entities/ai/HurtBox.tscn" id="11_xkmt3"]
+[ext_resource type="PackedScene" uid="uid://bpga8iw0kg7qe" path="res://entities/ai/soft_collision.tscn" id="12_l68dd"]
 [ext_resource type="PackedScene" uid="uid://dm5rqidd5jf8j" path="res://entities/ai/Detect.tscn" id="12_lyfdj"]
 
 [sub_resource type="Animation" id="7"]
@@ -989,10 +990,16 @@ radius = 150.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_l68dd"]
 radius = 100.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lyfdj"]
+radius = 6.0
+height = 20.0
+
 [node name="Bandit" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 32
 script = ExtResource("1_1lksi")
+spd = 100
+FRICTION = 5
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1005,14 +1012,13 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -0.216)
+position = Vector2(0, -2.216)
 shape = SubResource("1")
 
 [node name="base" type="Sprite2D" parent="."]
 texture_filter = 1
 material = ExtResource("4_1lksi")
-position = Vector2(0, -13.5)
+position = Vector2(0, -15.5)
 texture = ExtResource("5_72m3a")
 hframes = 5
 
@@ -1037,7 +1043,7 @@ texture = ExtResource("9_d4a1x")
 hframes = 5
 
 [node name="Pivot" type="Marker2D" parent="."]
-position = Vector2(0, -13.5)
+position = Vector2(0, -15.5)
 
 [node name="Weapon" parent="Pivot" instance=ExtResource("10_vxoyl")]
 
@@ -1055,10 +1061,8 @@ collision_mask = 256
 visible = false
 shape = SubResource("15")
 
-[node name="reactionTimer" type="Timer" parent="."]
+[node name="attackTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="hitTimer" type="Timer" parent="."]
 
 [node name="Attack" parent="." instance=ExtResource("12_lyfdj")]
 visible = false
@@ -1082,8 +1086,16 @@ collision_mask = 1
 [node name="CollisionShape2D" parent="Detect" index="0"]
 shape = SubResource("CircleShape2D_l68dd")
 
+[node name="SoftCollision" parent="." instance=ExtResource("12_l68dd")]
+position = Vector2(0, -2)
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lyfdj")
+
+[connection signal="animation_finished" from="fxAnimPlayer" to="." method="_on_fx_anim_player_animation_finished"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
-[connection signal="timeout" from="reactionTimer" to="." method="_on_reaction_timer_timeout"]
+[connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="area_entered" from="Attack" to="." method="_on_attack_area_entered"]
 [connection signal="area_exited" from="Attack" to="." method="_on_attack_area_exited"]
 [connection signal="area_exited" from="Chase" to="." method="_on_chase_area_exited"]
@@ -1095,3 +1107,4 @@ shape = SubResource("CircleShape2D_l68dd")
 [editable path="Attack"]
 [editable path="Chase"]
 [editable path="Detect"]
+[editable path="SoftCollision"]
