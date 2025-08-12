@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://c3ej7t7171jbb"]
+[gd_scene load_steps=14 format=4 uid="uid://c3ej7t7171jbb"]
 
 [ext_resource type="TileSet" uid="uid://d3xc3hotag3x" path="res://textures/world/tilemap/grass.tres" id="1_0t83y"]
 [ext_resource type="Script" uid="uid://ci7y2vrpag20t" path="res://world/world.gd" id="1_57b1q"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bmyjhs5i7xx2y" path="res://ui/PlayerCamera.gd" id="6_aee20"]
 [ext_resource type="PackedScene" uid="uid://dffmq8s70w7gt" path="res://ui/hp_ui.tscn" id="8_ai45w"]
 [ext_resource type="PackedScene" uid="uid://i1fvax3gkbyw" path="res://world/props/outdoors/smallTree.tscn" id="9_4papg"]
+[ext_resource type="PackedScene" uid="uid://6m12fmulaixx" path="res://world/props/outdoors/bigTree.tscn" id="9_ov2xu"]
 [ext_resource type="PackedScene" uid="uid://buv27syiik7qi" path="res://entities/mobs/hostile/Bandit.tscn" id="10_fyhu2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4papg"]
@@ -80,16 +81,25 @@ position = Vector2(726, 254)
 y_sort_enabled = true
 
 [node name="VillageHouse2" parent="ysort/village buildings" instance=ExtResource("3_mad0u")]
-position = Vector2(806, 229)
+position = Vector2(805, 212)
 
 [node name="VillageHouse3" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
-position = Vector2(1004, 220)
+position = Vector2(1011, 179)
 
 [node name="VillageHouse1" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
 position = Vector2(580, 222)
 
 [node name="VillageHouse4" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
-position = Vector2(552, 497)
+position = Vector2(516, 512)
+
+[node name="VillageHouse5" parent="ysort/village buildings" instance=ExtResource("3_mad0u")]
+position = Vector2(786, 555)
+
+[node name="VillageHouse6" parent="ysort/village buildings" instance=ExtResource("3_mad0u")]
+position = Vector2(1065, 538)
+
+[node name="VillageHouse7" parent="ysort/village buildings" instance=ExtResource("3_ov2xu")]
+position = Vector2(1287, 556)
 
 [node name="trees" type="Node2D" parent="ysort"]
 y_sort_enabled = true
@@ -103,6 +113,15 @@ position = Vector2(657, 122)
 
 [node name="SmallTree3" parent="ysort/trees" instance=ExtResource("9_4papg")]
 position = Vector2(400, 229)
+
+[node name="BigTree" parent="ysort/trees" instance=ExtResource("9_ov2xu")]
+position = Vector2(616, 115)
+
+[node name="BigTree2" parent="ysort/trees" instance=ExtResource("9_ov2xu")]
+position = Vector2(335, 476)
+
+[node name="BigTree3" parent="ysort/trees" instance=ExtResource("9_ov2xu")]
+position = Vector2(634, 513)
 
 [node name="Props" type="TileMapLayer" parent="ysort"]
 use_parent_material = true
