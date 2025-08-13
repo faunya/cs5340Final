@@ -1,5 +1,4 @@
 # 2D ARPG Game created in Godot
-Cannot figure out how to set local directories as the source of an existing repositior so am recreating it.
 
 ## To Do
 - [ ] Dialog system
@@ -10,18 +9,21 @@ Cannot figure out how to set local directories as the source of an existing repo
   - [ ] SFX
   - [ ] GUI
 - [ ] Combat System
-  - [ ] Player health
+  - [X] Player health
   - [X] Player attacking all directions
-  - [X] Enemy knockback
   - [X] Enemy taking damage
-  - [ ] Enemy attacking
-  - [ ] Enemy hit/death effects
+  - [X] Enemy attacking
+  - [X] Enemy hit/death effects
   - [ ] SFX
-- [ ] Dash state
-  - Maybe link up the hitbox in the player code so you have to have a certain skill to have I-frames during dash?
-- [ ] Inventory System
+  - [ ] More weapon types
+	- [X] Longsword
+	- [ ] Spear
+	- [ ] Greatsword
+	- [ ] Arming Sword
+	- [ ] Dagger
+	- [ ] Shield
 - [ ] GUI
-  - [ ] Health bar
+  - [X] Health bar
   - [ ] Mana bar ?
   - [ ] Stamina bar ?
   - [ ] Menus
@@ -30,8 +32,3 @@ Cannot figure out how to set local directories as the source of an existing repo
   - [ ] Rep system ?
   - [ ] 
 - [ ] 
-
-## Previous commits/changes:
-- Player attack spritesheet expanded, now has diagonal up sprites
-- Dialog JSON can be read
-- Chase state for enemies expanded
